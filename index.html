@@ -5,6 +5,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <!-- displays site properly based on user's device -->
 
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;600;700&display=swap"
+            rel="stylesheet"
+        />
+
         <link
             rel="icon"
             type="image/png"
@@ -12,11 +19,52 @@
             href="./assets/images/favicon-32x32.png"
         />
 
-        <link rel="stylesheet" href="styles.css" />
+        <link rel="stylesheet" href="/dist/output.css" />
 
         <title>Frontend Mentor | FAQ accordion</title>
 
         <style>
+            /* Tab content - closed */
+            .tab-content {
+                max-height: 0;
+                -webkit-transition: max-height 0.35s;
+                -o-transition: max-height 0.35s;
+                transition: max-height 0.35s;
+            }
+            /* :checked - resize to full height */
+            .tab input:checked ~ .tab-content {
+                max-height: 100vh;
+            }
+            /* Label formatting when open */
+            .tab input:checked + label {
+                padding: 1.25rem; /*.p-5*/
+                color: hsl(292, 16%, 49%); /*.text-indigo*/
+            }
+            /* Icon */
+            .tab label::after {
+                float: right;
+                right: 0;
+                top: 0;
+                display: block;
+                width: 1.5em;
+                height: 1.5em;
+                line-height: 1.5;
+                font-size: 1.25rem;
+                text-align: center;
+                -webkit-transition: all 0.35s;
+                -o-transition: all 0.35s;
+                transition: all 0.35s;
+            }
+            /* Icon formatting - closed */
+            .tab input[type="checkbox"] + label::after {
+                content: url("./assets/images/icon-plus.svg");
+            }
+
+            /* Icon formatting - open */
+            .tab input[type="checkbox"]:checked + label::after {
+                content: url("./assets/images/icon-minus.svg");
+            }
+
             .attribution {
                 font-size: 11px;
                 text-align: center;
@@ -26,25 +74,39 @@
             }
         </style>
     </head>
-    <body>
-        <div class="container">
-            <div>
-                <img
-                    src="./assets/images/background-pattern-mobile.svg"
-                    alt=""
-                    class="background-image"
-                />
-            </div>
-            <main>
-                <div class="header">
-                    <img src="./assets/images/icon-star.svg" />
-                    <h1>FAQs</h1>
+    <body class="font-work-sans">
+        <div
+            class="container min-h-screen mx-auto relative flex flex-col justify-center items-center bg-light-pink py-10"
+        >
+            <img
+                src="./assets/images/background-pattern-mobile.svg"
+                class="absolute z-10 inset-x-0 top-0 w-full object-cover max-h-60 md:h-60"
+            />
+            <main
+                class="z-20 relative bg-white max-w-xs mx-auto rounded-xl p-4 md:max-w-xl"
+            >
+                <div class="flex items-center">
+                    <img class="w-6 mr-5" src="./assets/images/icon-star.svg" />
+                    <h1 class="text-3xl font-bold">FAQs</h1>
                 </div>
 
-                <button class="accordion">
-                    <h2>What is Frontend Mentor, and how will it help me?</h2>
-                    <div class="panel">
-                        <p>
+                <div class="tab w-full overflow-hidden">
+                    <input
+                        class="absolute opacity-0"
+                        id="tab-multi-one"
+                        type="checkbox"
+                        name="tabs"
+                    />
+                    <label
+                        class="p-5 leading-normal cursor-pointer font-bold text-gray-purple flex justify-between"
+                        for="tab-multi-one"
+                        >What is Frontend Mentor, and how will it help
+                        me?</label
+                    >
+                    <div
+                        class="tab-content overflow-hidden text-gray-purple leading-normal"
+                    >
+                        <p class="p-5">
                             Frontend Mentor offers realistic coding challenges
                             to help developers improve their frontend coding
                             skills with projects in HTML, CSS, and JavaScript.
@@ -52,54 +114,83 @@
                             building.
                         </p>
                     </div>
-                </button>
+                </div>
 
-                <hr />
-
-                <button class="accordion">
-                    <h2>Is Frontend Mentor free?</h2>
-                    <div class="panel">
-                        <p>
+                <div class="tab w-full overflow-hidden border-t">
+                    <input
+                        class="absolute opacity-0"
+                        id="tab-multi-two"
+                        type="checkbox"
+                        name="tabs"
+                    />
+                    <label
+                        class="p-5 leading-normal cursor-pointer font-bold text-gray-purple flex justify-between"
+                        for="tab-multi-two"
+                        >Is Frontend Mentor free?</label
+                    >
+                    <div
+                        class="tab-content overflow-hidden text-gray-purple leading-normal"
+                    >
+                        <p class="p-5">
                             Yes, Frontend Mentor offers both free and premium
                             coding challenges, with the free option providing
                             access to a range of projects suitable for all skill
                             levels.
                         </p>
                     </div>
-                </button>
+                </div>
 
-                <hr />
-
-                <button class="accordion">
-                    <h2>Can I use Frontend Mentor projects in my portfolio?</h2>
-                    <div class="panel">
-                        <p>
+                <div class="tab w-full overflow-hidden border-t">
+                    <input
+                        class="absolute opacity-0"
+                        id="tab-multi-three"
+                        type="checkbox"
+                        name="tabs"
+                    />
+                    <label
+                        class="p-5 leading-normal cursor-pointer font-bold text-gray-purple flex justify-between"
+                        for="tab-multi-three"
+                        >Can I use Frontend Mentor projects in my
+                        portfolio?</label
+                    >
+                    <div
+                        class="tab-content overflow-hidden text-gray-purple leading-normal"
+                    >
+                        <p class="p-5">
                             Yes, you can use projects completed on Frontend
                             Mentor in your portfolio. It's an excellent way to
                             showcase your skills to potential employers!
                         </p>
                     </div>
-                </button>
+                </div>
 
-                <hr />
-
-                <button class="accordion">
-                    <h2>
-                        How can I get help if I'm stuck on a Frontend Mentor
-                        challenge?
-                    </h2>
-                    <div class="panel">
-                        <p>
+                <div class="tab w-full overflow-hidden border-t">
+                    <input
+                        class="absolute opacity-0"
+                        id="tab-multi-four"
+                        type="checkbox"
+                        name="tabs"
+                    />
+                    <label
+                        class="p-5 leading-normal cursor-pointer font-bold text-gray-purple flex justify-between"
+                        for="tab-multi-four"
+                        >How can I get help if I'm stuck on a Frontend Mentor
+                        challenge?</label
+                    >
+                    <div
+                        class="tab-content overflow-hidden text-gray-purple leading-normal"
+                    >
+                        <p class="p-5">
                             The best place to get help is inside Frontend
                             Mentor's Discord community. There's a help channel
                             where you can ask questions and seek support from
                             other community members.
                         </p>
                     </div>
-                </button>
+                </div>
             </main>
 
-            <div class="attribution">
+            <div class="attribution mt-4 mb-4 absolute inset-x-0 bottom-0">
                 Challenge by
                 <a
                     href="https://www.frontendmentor.io?ref=challenge"
